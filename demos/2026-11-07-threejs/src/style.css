@@ -1,0 +1,363 @@
+:root {
+  color-scheme: dark;
+  --stage: #080b10;
+  --paper: #f3eee4;
+  --ink: #1e1a16;
+  --muted: #5e574c;
+  --rule: #ddd4c4;
+  --sun: #e39b2b;
+  --p1: #2c7496;
+  --p2: #c4552a;
+  --good: #14663a;
+  --good-bg: #e5f2ea;
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--stage);
+  color: var(--ink);
+}
+
+#app {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+}
+
+#stage {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  background:
+    radial-gradient(ellipse at 50% 45%, #161c2b 0%, var(--stage) 62%);
+}
+
+#viewport {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+  overflow: hidden;
+}
+
+#viewport canvas {
+  display: block;
+}
+
+.stage-legend,
+.hint {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  pointer-events: none;
+  color: #f4efe4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+.stage-legend {
+  top: 0.85rem;
+  left: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+}
+
+.stage-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.dot.sun { background: #ffcc70; }
+.dot.p1 { background: #6eb0d4; }
+.dot.p2 { background: #f08a5d; }
+
+.hint {
+  top: 0.85rem;
+  right: 0.9rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  opacity: 0.85;
+}
+
+#lesson {
+  color-scheme: light;
+  background: var(--paper);
+  color: var(--ink);
+  overflow: auto;
+  padding: 1.35rem 1.3rem calc(1.6rem + env(safe-area-inset-bottom));
+  border-left: 1px solid #1a1e28;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--p2);
+}
+
+h1 {
+  margin: 0.25rem 0 0.45rem;
+  font-family: Palatino, "Palatino Linotype", "Iowan Old Style", Georgia, serif;
+  font-size: 1.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.lede,
+.law p,
+.footnote,
+.compare,
+.keyhint {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.lede {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.law {
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+h2 {
+  margin: 0 0 0.4rem;
+  font-family: Palatino, "Palatino Linotype", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+h2 span {
+  display: block;
+  margin-bottom: 0.12rem;
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--p2);
+}
+
+.law p {
+  font-size: 0.94rem;
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 44px;
+  margin-top: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.switch input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--p2);
+  cursor: pointer;
+}
+
+.readout {
+  margin-top: 0.55rem;
+  padding: 0.55rem 0.7rem;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--rule);
+  border-radius: 0.4rem;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.88rem;
+}
+
+#focus-readout {
+  white-space: pre-line;
+}
+
+.ratio-wrap {
+  margin: 0.8rem 0 0.2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  padding: 0.4rem 0.3rem;
+  text-align: right;
+  border-bottom: 1px solid var(--rule);
+}
+
+th:first-child,
+td:first-child,
+th[scope="row"] {
+  text-align: left;
+  font-weight: 600;
+}
+
+thead th {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ratio {
+  display: inline-block;
+  min-width: 4.6rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: var(--good-bg);
+  color: var(--good);
+  font-weight: 700;
+  text-align: center;
+}
+
+.compare {
+  margin-top: 0.55rem;
+  font-size: 0.9rem;
+}
+
+.slider {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.slider span {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+output {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--p2);
+}
+
+input[type="range"] {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin: 0.15rem 0 0;
+  accent-color: var(--p2);
+  cursor: pointer;
+}
+
+button {
+  appearance: none;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 0.35rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+button[aria-pressed="true"] {
+  background: transparent;
+  color: var(--ink);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.keyhint,
+.footnote {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.keyhint {
+  margin-top: 0.45rem;
+}
+
+.footnote {
+  margin-top: 1.2rem;
+}
+
+.label {
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  background: rgba(8, 11, 16, 0.55);
+  color: #f6f1e6;
+  font: 600 12px/1.3 "Avenir Next", "Segoe UI", sans-serif;
+  white-space: nowrap;
+  text-shadow: none;
+}
+
+.fallback {
+  margin: 2rem 1rem;
+  color: #f4efe4;
+  font-size: 1rem;
+}
+
+@media (max-width: 860px) {
+  #app {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(260px, 56dvh) minmax(0, 1fr);
+  }
+
+  #lesson {
+    border-left: 0;
+    border-top: 1px solid #1a1e28;
+    padding-top: 1.1rem;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .hint {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .stage-legend,
+  .hint {
+    font-size: 0.72rem;
+  }
+
+  #lesson {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

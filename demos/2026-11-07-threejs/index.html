@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="An interactive demonstration of Kepler's three laws of planetary motion."
+    />
+    <title>Kepler's three laws</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <section id="stage" aria-label="Orbital scene">
+        <div id="viewport"></div>
+        <div class="stage-legend">
+          <span><i class="dot sun"></i>Sun</span>
+          <span><i class="dot p1"></i>Planet 1</span>
+          <span><i class="dot p2"></i>Planet 2</span>
+        </div>
+        <p class="hint">Drag to rotate · scroll or pinch to zoom</p>
+      </section>
+
+      <aside id="lesson">
+        <header class="lesson-head">
+          <p class="kicker">Astronomy club</p>
+          <h1>Kepler’s three laws</h1>
+          <p class="lede">
+            Two planets orbit one star. Each position is solved from Kepler’s equation, so a
+            planet speeds up when it swings close to the Sun.
+          </p>
+          <div class="ratio-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>a</th>
+                  <th>T</th>
+                  <th>T<sup>2</sup> / a<sup>3</sup></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Planet 1</th>
+                  <td id="a1">5.00</td>
+                  <td id="t1">—</td>
+                  <td><span id="ratio1" class="ratio">—</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Planet 2</th>
+                  <td id="a2">9.50</td>
+                  <td id="t2">—</td>
+                  <td><span id="ratio2" class="ratio">—</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <p id="year-compare" class="compare"></p>
+          </div>
+        </header>
+
+        <section class="law" aria-labelledby="law1-title">
+          <h2 id="law1-title"><span>Law 1</span> Ellipses</h2>
+          <p>
+            Each planet travels on an ellipse with the Sun at one focus, not the center. The
+            other focus is empty. From any point on the orbit, the distances to the two foci add
+            up to 2a.
+          </p>
+          <label class="switch">
+            <input id="toggle-foci" type="checkbox" />
+            <span>Show both foci</span>
+          </label>
+          <p id="focus-readout" class="readout" hidden></p>
+        </section>
+
+        <section class="law" aria-labelledby="law2-title">
+          <h2 id="law2-title"><span>Law 2</span> Equal areas</h2>
+          <p>
+            In equal times, the line from the Sun to a planet sweeps out equal areas. The shaded
+            wedges are planet 2 over the same tenth of its year: short and wide near perihelion,
+            long and thin near aphelion.
+          </p>
+          <label class="switch">
+            <input id="toggle-areas" type="checkbox" />
+            <span>Show equal-area wedges</span>
+          </label>
+          <p id="area-readout" class="readout" hidden></p>
+          <p id="speed-readout" class="readout">
+            Planet 2 is moving <strong id="speed-now">—</strong> its slowest speed.
+          </p>
+        </section>
+
+        <section class="law" aria-labelledby="law3-title">
+          <h2 id="law3-title"><span>Law 3</span> Periods</h2>
+          <p>
+            Square the time for one orbit, then divide by the cube of the semi-major axis a.
+            The table above stays matched for both planets. Eccentricity changes the shape and
+            the speed along the path. It does not change the ratio, or how long the year is.
+          </p>
+
+          <label class="slider">
+            <span>Planet 2 eccentricity <output id="eOut" for="ecc">0.60</output></span>
+            <input id="ecc" type="range" min="0" max="0.75" step="0.01" value="0.60" />
+          </label>
+          <label class="slider">
+            <span>Planet 2 semi-major axis <output id="aOut" for="axis">9.5</output></span>
+            <input id="axis" type="range" min="4.2" max="14" step="0.1" value="9.5" />
+          </label>
+        </section>
+
+        <section class="law" aria-label="Time controls">
+          <h2><span>Clock</span> Time</h2>
+          <p>
+            Speed up the clock, or pause it. The inner planet finishes its year first, whatever
+            the eccentricities are.
+          </p>
+          <label class="slider">
+            <span>Time speed <output id="speedOut" for="speed">1.5×</output></span>
+            <input id="speed" type="range" min="0.2" max="6" step="0.1" value="1.5" />
+          </label>
+          <button type="button" id="pause" aria-pressed="false">Pause</button>
+          <p class="keyhint">Space bar pauses when a slider is not focused.</p>
+        </section>
+
+        <p class="footnote">
+          Units are chosen so T<sup>2</sup> / a<sup>3</sup> = 1. Each frame solves
+          M = E − e sin E, then places the planet on its ellipse.
+        </p>
+      </aside>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
